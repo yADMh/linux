@@ -709,16 +709,16 @@ Arquivo: `ex12_checklist_comissionamento.md`
 
 | Objetivo             | Comando                      | Evidência esperada     | Resultado     |
 | -------------------- | ---------------------------- | ---------------------- | ------------- |
-| Verificar IPv4       | `ip -4 addr`                 | Endereço inet          | Passou/Falhou |
-| Verificar IPv6       | `ip -6 addr`                 | Endereço inet6         | Passou/Falhou |
-| Validar rota default | `ip route`                   | Linha default via      | Passou/Falhou |
-| Validar DNS          | `cat /etc/resolv.conf`       | Nameserver configurado | Passou/Falhou |
-| Validar hosts        | `cat /etc/hosts`             | Entrada localhost      | Passou/Falhou |
-| Validar hostname     | `hostnamectl`                | Hostname correto       | Passou/Falhou |
-| Validar portas TCP   | `ss -tuln`                   | Portas LISTEN          | Passou/Falhou |
-| Validar DHCP         | `nmcli device show`          | Gateway e DNS          | Passou/Falhou |
-| Validar forwarding   | `sysctl net.ipv4.ip_forward` | Valor 0 ou 1           | Passou/Falhou |
-| Validar internet     | `ping 8.8.8.8`               | Respostas ICMP         | Passou/Falhou |
+| Verificar IPv4       | `ip -4 addr`                 | Endereço inet          | Passou        |
+| Verificar IPv6       | `ip -6 addr`                 | Endereço inet6         | Passou        |
+| Validar rota default | `ip route`                   | Linha default via      | Passou        |
+| Validar DNS          | `cat /etc/resolv.conf`       | Nameserver configurado | Passou        |
+| Validar hosts        | `cat /etc/hosts`             | Entrada localhost      | Passou        |
+| Validar hostname     | `hostnamectl`                | Hostname correto       | Passou        |
+| Validar portas TCP   | `ss -tuln`                   | Portas LISTEN          | Passou        |
+| Validar DHCP         | `nmcli device show`          | Gateway e DNS          | Passou        |
+| Validar forwarding   | `sysctl net.ipv4.ip_forward` | Valor 0 ou 1           | Passou        |
+| Validar internet     | `ping 8.8.8.8`               | Respostas ICMP         | Passou        |
 
 ## Evidências executadas
 
