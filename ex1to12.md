@@ -305,35 +305,46 @@ ip route
 ## Evidência
 
 ```text
-default via 192.168.0.1 dev enp0s3 metric 100
-192.168.0.0/24 dev enp0s3 proto kernel
-172.17.0.0/16 dev docker0 proto kernel
+default via 10.0.2.2 dev enp0s3 proto dhcp src 10.0.2.15 metric 100
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 100
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown
 ```
 
 ## Rota default
 
-* Gateway: `192.168.0.1`
+* Gateway: `10.0.2.2`
 * Interface: `enp0s3`
 * Métrica: `100`
 
+### Conclusão
+
+A máquina utiliza o gateway `10.0.2.2` para acessar redes externas e a internet através da interface `enp0s3`.
+
 ## Rotas conectadas
 
-1. `192.168.0.0/24` via `enp0s3`
+1. `10.0.2.0/24` via `enp0s3`
 2. `172.17.0.0/16` via `docker0`
+
+### Conclusão
+
+A rede `10.0.2.0/24` representa a LAN principal da máquina virtual.  
+A rede `172.17.0.0/16` pertence ao Docker e está marcada como `linkdown`, indicando que não há containers ativos utilizando essa interface no momento.
 
 ## Simulações
 
 ### Destino local
 
-Destino: `192.168.0.25`
+Destino: `10.0.2.20`
 
 Rota utilizada:
 
 ```text
-192.168.0.0/24 dev enp0s3
+10.0.2.0/24 dev enp0s3
 ```
 
-Justificativa: rota mais específica da LAN.
+Justificativa: o destino pertence à mesma rede local da interface principal, então o kernel utiliza a rota diretamente conectada mais específica.
+
+---
 
 ### Destino público
 
@@ -342,10 +353,12 @@ Destino: `8.8.8.8`
 Rota utilizada:
 
 ```text
-default via 192.168.0.1
+default via 10.0.2.2
 ```
 
-Justificativa: não existe rota específica.
+Justificativa: não existe rota específica para o endereço `8.8.8.8`, então o tráfego é enviado pela rota default configurada.
+
+---
 
 ### Destino Docker
 
@@ -357,13 +370,13 @@ Rota utilizada:
 172.17.0.0/16 dev docker0
 ```
 
-Justificativa: rede diretamente conectada.
+Justificativa: o endereço pertence à rede virtual do Docker, então o kernel utiliza a rota diretamente conectada da interface `docker0`.
 
 ## Riscos
 
-1. Perda de acesso à internet.
-2. Tráfego enviado para gateway incorreto.
-3. Lentidão causada por rotas inválidas.
+1. Perda total de acesso à internet caso a rota default esteja incorreta.
+2. Envio de tráfego para gateway inválido, causando falhas de conectividade.
+3. Lentidão ou indisponibilidade causada por rotas conflitantes ou métricas incorretas.
 
 ---
 
