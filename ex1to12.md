@@ -29,6 +29,8 @@ ethtool enp0s3
 ### Evidência
 
 ```text
+Speed: 1000Mb/s
+Duplex: Full
 Link detected: yes
 ```
 
@@ -49,7 +51,7 @@ ip addr
 ### Evidência
 
 ```text
-inet 192.168.0.15/24
+inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
 ```
 
 ### Conclusão
@@ -65,7 +67,7 @@ ip route
 ### Evidência
 
 ```text
-default via 192.168.0.1 dev enp0s3
+default via 10.0.2.2 dev enp0s3 proto dhcp src 10.0.2.15 metric 100
 ```
 
 ### Conclusão
@@ -85,7 +87,7 @@ ss -tulpen
 ### Evidência
 
 ```text
-tcp LISTEN 0 128 0.0.0.0:22
+tcp LISTEN 0 4096 0.0.0.0:22
 ```
 
 ### Conclusão
@@ -121,7 +123,7 @@ cat /etc/resolv.conf
 ### Evidência
 
 ```text
-nameserver 8.8.8.8
+nameserver 127.0.0.53
 ```
 
 ### Conclusão
@@ -137,7 +139,7 @@ getent hosts google.com
 ### Evidência
 
 ```text
-142.250.219.14 google.com
+2800:3f0:4001:838::200e google.com
 ```
 
 ### Conclusão
@@ -157,7 +159,7 @@ ping -c 4 google.com
 ### Evidência
 
 ```text
-4 packets transmitted, 4 received
+4 packets transmitted, 4 received, 0% packet loss
 ```
 
 ### Conclusão
