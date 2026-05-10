@@ -237,7 +237,7 @@ ip -4 addr
 ## Evidência
 
 ```text
-inet 192.168.0.15/24
+inet 10.0.2.15/24
 ```
 
 ## Comando
@@ -249,7 +249,9 @@ ip -6 addr
 ## Evidência
 
 ```text
-inet6 fe80::a00:27ff:fe4e:66a1/64
+inet6 fd17:625c:f037:2:a47:381c:ffc1:e1df/64
+inet6 fd17:625c:f037:2:a00:27ff:fe76:6158/64
+inet6 fe80::a00:27ff:fe76:6158/64
 ```
 
 ## Comando
@@ -261,7 +263,7 @@ ip -4 route
 ## Evidência
 
 ```text
-default via 192.168.0.1
+default via 10.0.2.2 dev enp0s3
 ```
 
 ## Comando
@@ -273,7 +275,7 @@ ip -6 route
 ## Evidência
 
 ```text
-fe80::/64 dev enp0s3
+default via fe80::2 dev enp0s3
 ```
 
 ## Respostas
@@ -395,7 +397,9 @@ ip -6 addr show
 ## Evidência
 
 ```text
-inet6 fe80::a00:27ff:fe4e:66a1/64 scope link
+inet6 fd17:625c:f037:2:a47:381c:ffc1:e1df/64 scope global temporary dynamic
+inet6 fd17:625c:f037:2:a00:27ff:fe76:6158/64 scope global dynamic mngtmpaddr
+inet6 fe80::a00:27ff:fe76:6158/64 scope link
 ```
 
 ## Comando
@@ -407,7 +411,9 @@ ip -6 route show
 ## Evidência
 
 ```text
+fd17:625c:f037:2::/64 dev enp0s3
 fe80::/64 dev enp0s3
+default via fe80::2 dev enp0s3
 ```
 
 ## Classificação
@@ -443,7 +449,9 @@ Arquivo: `ex6_dns_hosts.md`
 ### /etc/resolv.conf
 
 ```text
-nameserver 8.8.8.8
+nameserver 127.0.0.53
+options edns0 trust-ad
+search .
 ```
 
 ## Adição no hosts
