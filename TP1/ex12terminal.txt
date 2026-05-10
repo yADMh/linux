@@ -1,0 +1,139 @@
+user@ubuntu:~/Desktop$  ip -4 addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 83489sec preferred_lft 83489sec
+3: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+user@ubuntu:~/Desktop$ ip -6 addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 state UNKNOWN qlen 1000
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 state UP qlen 1000
+    inet6 fd17:625c:f037:2:a47:381c:ffc1:e1df/64 scope global temporary dynamic 
+       valid_lft 86055sec preferred_lft 14055sec
+    inet6 fd17:625c:f037:2:a00:27ff:fe76:6158/64 scope global dynamic mngtmpaddr 
+       valid_lft 86055sec preferred_lft 14055sec
+    inet6 fe80::a00:27ff:fe76:6158/64 scope link 
+       valid_lft forever preferred_lft forever
+user@ubuntu:~/Desktop$ ip route
+default via 10.0.2.2 dev enp0s3 proto dhcp src 10.0.2.15 metric 100 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 100 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+user@ubuntu:~/Desktop$ cat /etc/resolv.conf
+# This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).
+# Do not edit.
+#
+# This file might be symlinked as /etc/resolv.conf. If you're looking at
+# /etc/resolv.conf and seeing this text, you have followed the symlink.
+#
+# This is a dynamic resolv.conf file for connecting local clients to the
+# internal DNS stub resolver of systemd-resolved. This file lists all
+# configured search domains.
+#
+# Run "resolvectl status" to see details about the uplink DNS servers
+# currently in use.
+#
+# Third party programs should typically not access this file directly, but only
+# through the symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a
+# different way, replace this symlink by a static file or a different symlink.
+#
+# See man:systemd-resolved.service(8) for details about the supported modes of
+# operation for /etc/resolv.conf.
+
+nameserver 127.0.0.53
+options edns0 trust-ad
+search .
+user@ubuntu:~/Desktop$ cat /etc/hosts
+127.0.0.1	localhost.localdomain	localhost
+::1		localhost6.localdomain6	localhost6
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+user@ubuntu:~/Desktop$ hostnamectl
+ Static hostname: ubuntu
+       Icon name: computer-vm
+         Chassis: vm 🖴
+      Machine ID: f530a352c57945bcb4ebab1655c12b8f
+         Boot ID: be4780783e334ab2b3d7c45987d55db8
+  Virtualization: oracle
+Operating System: Ubuntu 24.04.4 LTS              
+          Kernel: Linux 6.17.0-20-generic
+    Architecture: x86-64
+ Hardware Vendor: innotek GmbH
+  Hardware Model: VirtualBox
+Firmware Version: VirtualBox
+   Firmware Date: Fri 2006-12-01
+    Firmware Age: 19y 5month 1w 1d                
+user@ubuntu:~/Desktop$ ss -tuln
+Netid          State           Recv-Q          Send-Q                   Local Address:Port                    Peer Address:Port         Process         
+udp            UNCONN          0               0                              0.0.0.0:59268                        0.0.0.0:*                            
+udp            UNCONN          0               0                           127.0.0.54:53                           0.0.0.0:*                            
+udp            UNCONN          0               0                        127.0.0.53%lo:53                           0.0.0.0:*                            
+udp            UNCONN          0               0                              0.0.0.0:5353                         0.0.0.0:*                            
+udp            UNCONN          0               0                                 [::]:47582                           [::]:*                            
+udp            UNCONN          0               0                                 [::]:5353                            [::]:*                            
+tcp            LISTEN          0               4096                         127.0.0.1:34481                        0.0.0.0:*                            
+tcp            LISTEN          0               4096                     127.0.0.53%lo:53                           0.0.0.0:*                            
+tcp            LISTEN          0               4096                           0.0.0.0:22                           0.0.0.0:*                            
+tcp            LISTEN          0               4096                        127.0.0.54:53                           0.0.0.0:*                            
+tcp            LISTEN          0               4096                         127.0.0.1:631                          0.0.0.0:*                            
+tcp            LISTEN          0               4096                             [::1]:631                             [::]:*                            
+tcp            LISTEN          0               4096                              [::]:22                              [::]:*                            
+user@ubuntu:~/Desktop$ nmcli device show
+GENERAL.DEVICE:                         enp0s3
+GENERAL.TYPE:                           ethernet
+GENERAL.HWADDR:                         08:00:27:76:61:58
+GENERAL.MTU:                            1500
+GENERAL.STATE:                          100 (connected)
+GENERAL.CONNECTION:                     netplan-enp0s3
+GENERAL.CON-PATH:                       /org/freedesktop/NetworkManager/ActiveConnection/2
+WIRED-PROPERTIES.CARRIER:               on
+IP4.ADDRESS[1]:                         10.0.2.15/24
+IP4.GATEWAY:                            10.0.2.2
+IP4.ROUTE[1]:                           dst = 10.0.2.0/24, nh = 0.0.0.0, mt = 100
+IP4.ROUTE[2]:                           dst = 0.0.0.0/0, nh = 10.0.2.2, mt = 100
+IP4.DNS[1]:                             192.168.15.1
+IP6.ADDRESS[1]:                         fd17:625c:f037:2:a00:27ff:fe76:6158/64
+IP6.ADDRESS[2]:                         fd17:625c:f037:2:a47:381c:ffc1:e1df/64
+IP6.ADDRESS[3]:                         fe80::a00:27ff:fe76:6158/64
+IP6.GATEWAY:                            fe80::2
+IP6.ROUTE[1]:                           dst = fe80::/64, nh = ::, mt = 256
+IP6.ROUTE[2]:                           dst = ::/0, nh = fe80::2, mt = 1024
+IP6.ROUTE[3]:                           dst = fd17:625c:f037:2::/64, nh = ::, mt = 256
+
+GENERAL.DEVICE:                         lo
+GENERAL.TYPE:                           loopback
+GENERAL.HWADDR:                         00:00:00:00:00:00
+GENERAL.MTU:                            65536
+GENERAL.STATE:                          100 (connected (externally))
+GENERAL.CONNECTION:                     lo
+GENERAL.CON-PATH:                       /org/freedesktop/NetworkManager/ActiveConnection/1
+IP4.ADDRESS[1]:                         127.0.0.1/8
+IP4.GATEWAY:                            --
+IP6.ADDRESS[1]:                         ::1/128
+IP6.GATEWAY:                            --
+
+GENERAL.DEVICE:                         docker0
+GENERAL.TYPE:                           bridge
+GENERAL.HWADDR:                         12:96:90:A9:3F:80
+user@ubuntu:~/Desktop$ sysctl net.ipv4.ip_forward
+net.ipv4.ip_forward = 1
+user@ubuntu:~/Desktop$ ping 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=255 time=12.8 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=255 time=11.8 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=255 time=11.8 ms
+^C
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3009ms
+rtt min/avg/max/mdev = 11.621/11.984/12.764/0.454 ms
+

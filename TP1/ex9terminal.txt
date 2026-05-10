@@ -1,0 +1,15 @@
+user@ubuntu:~/Desktop$ ss -tulpen
+Netid State   Recv-Q  Send-Q   Local Address:Port    Peer Address:Port Process                                                                          
+udp   UNCONN  0       0              0.0.0.0:59268        0.0.0.0:*     uid:108 ino:9784 sk:1 cgroup:/system.slice/avahi-daemon.service <->             
+udp   UNCONN  0       0           127.0.0.54:53           0.0.0.0:*     uid:991 ino:7433 sk:2 cgroup:/system.slice/systemd-resolved.service <->         
+udp   UNCONN  0       0        127.0.0.53%lo:53           0.0.0.0:*     uid:991 ino:7431 sk:3 cgroup:/system.slice/systemd-resolved.service <->         
+udp   UNCONN  0       0              0.0.0.0:5353         0.0.0.0:*     uid:108 ino:9782 sk:4 cgroup:/system.slice/avahi-daemon.service <->             
+udp   UNCONN  0       0                 [::]:47582           [::]:*     uid:108 ino:9785 sk:1001 cgroup:/system.slice/avahi-daemon.service v6only:1 <-> 
+udp   UNCONN  0       0                 [::]:5353            [::]:*     uid:108 ino:9783 sk:1002 cgroup:/system.slice/avahi-daemon.service v6only:1 <-> 
+tcp   LISTEN  0       4096         127.0.0.1:34481        0.0.0.0:*     ino:12256 sk:1003 cgroup:/system.slice/containerd.service <->                   
+tcp   LISTEN  0       4096     127.0.0.53%lo:53           0.0.0.0:*     uid:991 ino:7432 sk:1004 cgroup:/system.slice/systemd-resolved.service <->      
+tcp   LISTEN  0       4096           0.0.0.0:22           0.0.0.0:*     ino:8960 sk:1005 cgroup:/system.slice/ssh.socket <->                            
+tcp   LISTEN  0       4096        127.0.0.54:53           0.0.0.0:*     uid:991 ino:7434 sk:1006 cgroup:/system.slice/systemd-resolved.service <->      
+tcp   LISTEN  0       4096         127.0.0.1:631          0.0.0.0:*     ino:11166 sk:1007 cgroup:/system.slice/cups.service <->                         
+tcp   LISTEN  0       4096             [::1]:631             [::]:*     ino:11165 sk:1008 cgroup:/system.slice/cups.service v6only:1 <->                
+tcp   LISTEN  0       4096              [::]:22              [::]:*     ino:9294 sk:1009 cgroup:/system.slice/ssh.socket v6only:1 <->           

@@ -1,0 +1,16 @@
+user@LinuxdaFaculdade:~/Desktop$ ip -6 addr show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 state UNKNOWN qlen 1000
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 state UP qlen 1000
+    inet6 fd17:625c:f037:2:a47:381c:ffc1:e1df/64 scope global temporary dynamic 
+       valid_lft 86330sec preferred_lft 14330sec
+    inet6 fd17:625c:f037:2:a00:27ff:fe76:6158/64 scope global dynamic mngtmpaddr 
+       valid_lft 86330sec preferred_lft 14330sec
+    inet6 fe80::a00:27ff:fe76:6158/64 scope link 
+       valid_lft forever preferred_lft forever
+user@LinuxdaFaculdade:~/Desktop$ ip -6 route show
+fd17:625c:f037:2::/64 dev enp0s3 proto kernel metric 256 expires 86309sec pref medium
+fe80::/64 dev enp0s3 proto kernel metric 256 pref medium
+default via fe80::2 dev enp0s3 proto ra metric 1024 expires 1709sec hoplimit 64 pref medium
+

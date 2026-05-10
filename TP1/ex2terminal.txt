@@ -1,0 +1,283 @@
+user@LinuxdaFaculdade:~/Desktop$ ip link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:76:61:58 brd ff:ff:ff:ff:ff:ff
+3: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN mode DEFAULT group default 
+    link/ether 12:96:90:a9:3f:80 brd ff:ff:ff:ff:ff:ff
+user@LinuxdaFaculdade:~/Desktop$ arp -n
+Address                  HWtype  HWaddress           Flags Mask            Iface
+10.0.2.2                 ether   52:55:0a:00:02:02   C                     enp0s3
+user@LinuxdaFaculdade:~/Desktop$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:76:61:58 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 85272sec preferred_lft 85272sec
+    inet6 fd17:625c:f037:2:a47:381c:ffc1:e1df/64 scope global temporary dynamic 
+       valid_lft 86069sec preferred_lft 14069sec
+    inet6 fd17:625c:f037:2:a00:27ff:fe76:6158/64 scope global dynamic mngtmpaddr 
+       valid_lft 86069sec preferred_lft 14069sec
+    inet6 fe80::a00:27ff:fe76:6158/64 scope link 
+       valid_lft forever preferred_lft forever
+3: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether 12:96:90:a9:3f:80 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+user@LinuxdaFaculdade:~/Desktop$ ping
+ping: usage error: Destination address required
+user@LinuxdaFaculdade:~/Desktop$ ping 8.8.8.8\
+> 
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=255 time=12.6 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=255 time=11.9 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=255 time=11.8 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=255 time=12.9 ms
+64 bytes from 8.8.8.8: icmp_seq=5 ttl=255 time=11.9 ms
+64 bytes from 8.8.8.8: icmp_seq=6 ttl=255 time=12.8 ms
+q64 bytes from 8.8.8.8: icmp_seq=7 ttl=255 time=12.3 ms
+64 bytes from 8.8.8.8: icmp_seq=8 ttl=255 time=14.5 ms
+64 bytes from 8.8.8.8: icmp_seq=9 ttl=255 time=12.6 ms
+64 bytes from 8.8.8.8: icmp_seq=10 ttl=255 time=12.2 ms
+64 bytes from 8.8.8.8: icmp_seq=11 ttl=255 time=11.8 ms
+
+64 bytes from 8.8.8.8: icmp_seq=12 ttl=255 time=11.4 ms
+64 bytes from 8.8.8.8: icmp_seq=13 ttl=255 time=12.8 ms
+^[64 bytes from 8.8.8.8: icmp_seq=14 ttl=255 time=11.6 ms
+^[64 bytes from 8.8.8.8: icmp_seq=15 ttl=255 time=11.7 ms
+64 bytes from 8.8.8.8: icmp_seq=16 ttl=255 time=11.9 ms
+64 bytes from 8.8.8.8: icmp_seq=17 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=18 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=19 ttl=255 time=11.4 ms
+64 bytes from 8.8.8.8: icmp_seq=20 ttl=255 time=11.9 ms
+64 bytes from 8.8.8.8: icmp_seq=21 ttl=255 time=13.5 ms
+64 bytes from 8.8.8.8: icmp_seq=22 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=23 ttl=255 time=11.4 ms
+64 bytes from 8.8.8.8: icmp_seq=24 ttl=255 time=12.2 ms
+64 bytes from 8.8.8.8: icmp_seq=25 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=26 ttl=255 time=11.8 ms
+64 bytes from 8.8.8.8: icmp_seq=27 ttl=255 time=11.7 ms
+\^[\^[64 bytes from 8.8.8.8: icmp_seq=28 ttl=255 time=11.6 ms
+28/28 packets, 0% loss, min/avg/ewma/max = 11.350/12.087/11.878/14.474 ms
+^H
+64 bytes from 8.8.8.8: icmp_seq=29 ttl=255 time=11.8 ms
+64 bytes from 8.8.8.8: icmp_seq=30 ttl=255 time=11.5 ms
+64 bytes from 8.8.8.8: icmp_seq=31 ttl=255 time=11.7 ms
+Q64 bytes from 8.8.8.8: icmp_seq=32 ttl=255 time=12.5 ms
+
+64 bytes from 8.8.8.8: icmp_seq=33 ttl=255 time=11.9 ms
+
+dsaj eiz., co9xy64 bytes from 8.8.8.8: icmp_seq=34 ttl=255 time=11.7 ms
+64 bytes from 8.8.8.8: icmp_seq=35 ttl=255 time=11.3 ms
+64 bytes from 8.8.8.8: icmp_seq=36 ttl=255 time=11.5 ms
+64 bytes from 8.8.8.8: icmp_seq=37 ttl=255 time=12.2 ms
+64 bytes from 8.8.8.8: icmp_seq=38 ttl=255 time=12.0 ms
+64 bytes from 8.8.8.8: icmp_seq=39 ttl=255 time=11.3 ms
+64 bytes from 8.8.8.8: icmp_seq=40 ttl=255 time=11.7 ms
+64 bytes from 8.8.8.8: icmp_seq=41 ttl=255 time=12.3 ms
+64 bytes from 8.8.8.8: icmp_seq=42 ttl=255 time=11.5 ms
+64 bytes from 8.8.8.8: icmp_seq=43 ttl=255 time=12.2 ms
+64 bytes from 8.8.8.8: icmp_seq=44 ttl=255 time=11.5 ms
+64 bytes from 8.8.8.8: icmp_seq=45 ttl=255 time=15.5 ms
+64 bytes from 8.8.8.8: icmp_seq=46 ttl=255 time=12.1 ms
+64 bytes from 8.8.8.8: icmp_seq=47 ttl=255 time=11.9 ms
+64 bytes from 8.8.8.8: icmp_seq=48 ttl=255 time=12.0 ms
+64 bytes from 8.8.8.8: icmp_seq=49 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=50 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=51 ttl=255 time=11.5 ms
+64 bytes from 8.8.8.8: icmp_seq=52 ttl=255 time=12.4 ms
+64 bytes from 8.8.8.8: icmp_seq=53 ttl=255 time=11.7 ms
+64 bytes from 8.8.8.8: icmp_seq=54 ttl=255 time=12.0 ms
+64 bytes from 8.8.8.8: icmp_seq=55 ttl=255 time=11.8 ms
+64 bytes from 8.8.8.8: icmp_seq=56 ttl=255 time=10.9 ms
+64 bytes from 8.8.8.8: icmp_seq=57 ttl=255 time=11.1 ms
+64 bytes from 8.8.8.8: icmp_seq=58 ttl=255 time=11.7 ms
+64 bytes from 8.8.8.8: icmp_seq=59 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=60 ttl=255 time=11.6 ms
+64 bytes from 8.8.8.8: icmp_seq=61 ttl=255 time=11.9 ms
+64 bytes from 8.8.8.8: icmp_seq=62 ttl=255 time=12.0 ms
+^C
+--- 8.8.8.8 ping statistics ---
+62 packets transmitted, 62 received, 0% packet loss, time 61327ms
+rtt min/avg/max/mdev = 10.941/11.965/15.536/0.719 ms
+user@LinuxdaFaculdade:~/Desktop$ ss -tuln
+Netid          State           Recv-Q          Send-Q                   Local Address:Port                    Peer Address:Port         Process         
+udp            UNCONN          0               0                              0.0.0.0:59268                        0.0.0.0:*                            
+udp            UNCONN          0               0                           127.0.0.54:53                           0.0.0.0:*                            
+udp            UNCONN          0               0                        127.0.0.53%lo:53                           0.0.0.0:*                            
+udp            UNCONN          0               0                              0.0.0.0:5353                         0.0.0.0:*                            
+udp            UNCONN          0               0                                 [::]:47582                           [::]:*                            
+udp            UNCONN          0               0                                 [::]:5353                            [::]:*                            
+tcp            LISTEN          0               4096                         127.0.0.1:34481                        0.0.0.0:*                            
+tcp            LISTEN          0               4096                     127.0.0.53%lo:53                           0.0.0.0:*                            
+tcp            LISTEN          0               4096                           0.0.0.0:22                           0.0.0.0:*                            
+tcp            LISTEN          0               4096                        127.0.0.54:53                           0.0.0.0:*                            
+tcp            LISTEN          0               4096                         127.0.0.1:631                          0.0.0.0:*                            
+tcp            LISTEN          0               4096                             [::1]:631                             [::]:*                            
+tcp            LISTEN          0               4096                              [::]:22                              [::]:*                            
+user@LinuxdaFaculdade:~/Desktop$ netstat -tuln
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 127.0.0.1:34481         0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.54:53           0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN     
+tcp6       0      0 ::1:631                 :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+udp        0      0 0.0.0.0:59268           0.0.0.0:*                          
+udp        0      0 127.0.0.54:53           0.0.0.0:*                          
+udp        0      0 127.0.0.53:53           0.0.0.0:*                          
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                          
+udp6       0      0 :::47582                :::*                               
+udp6       0      0 :::5353                 :::*                               
+user@LinuxdaFaculdade:~/Desktop$ who
+user     seat0        2026-05-10 14:38 (login screen)
+user     tty2         2026-05-10 14:38 (tty2)
+user@LinuxdaFaculdade:~/Desktop$ openssl s_client -connect google.com:443
+CONNECTED(00000003)
+depth=2 C = US, O = Google Trust Services LLC, CN = GTS Root R1
+verify return:1
+depth=1 C = US, O = Google Trust Services, CN = WR2
+verify return:1
+depth=0 CN = *.google.com
+verify return:1
+---
+Certificate chain
+ 0 s:CN = *.google.com
+   i:C = US, O = Google Trust Services, CN = WR2
+   a:PKEY: id-ecPublicKey, 256 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Apr 20 08:35:05 2026 GMT; NotAfter: Jul 13 08:35:04 2026 GMT
+ 1 s:C = US, O = Google Trust Services, CN = WR2
+   i:C = US, O = Google Trust Services LLC, CN = GTS Root R1
+   a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Dec 13 09:00:00 2023 GMT; NotAfter: Feb 20 14:00:00 2029 GMT
+ 2 s:C = US, O = Google Trust Services LLC, CN = GTS Root R1
+   i:C = BE, O = GlobalSign nv-sa, OU = Root CA, CN = GlobalSign Root CA
+   a:PKEY: rsaEncryption, 4096 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Jun 19 00:00:42 2020 GMT; NotAfter: Jan 28 00:00:42 2028 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIONzCCDR+gAwIBAgIRAPIuzR8E/lf+CrPMiIpFXf0wDQYJKoZIhvcNAQELBQAw
+OzELMAkGA1UEBhMCVVMxHjAcBgNVBAoTFUdvb2dsZSBUcnVzdCBTZXJ2aWNlczEM
+MAoGA1UEAxMDV1IyMB4XDTI2MDQyMDA4MzUwNVoXDTI2MDcxMzA4MzUwNFowFzEV
+MBMGA1UEAwwMKi5nb29nbGUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE
+is27tRmO/bLFj/9YzOy+hlpp+jCFXRxZxwiNiv+wHQ9dEI4ALF2RnYpL3owQBDt4
+/7JrhwEzOJF/dS53p3hP56OCDCMwggwfMA4GA1UdDwEB/wQEAwIHgDATBgNVHSUE
+DDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBTHbJqmLrmV5vaD
+jcFVjXKmoHTQyTAfBgNVHSMEGDAWgBTeGx7teRXUPjckwyG77DQ5bUKyMDBYBggr
+BgEFBQcBAQRMMEowIQYIKwYBBQUHMAGGFWh0dHA6Ly9vLnBraS5nb29nL3dyMjAl
+BggrBgEFBQcwAoYZaHR0cDovL2kucGtpLmdvb2cvd3IyLmNydDCCCfgGA1UdEQSC
+Ce8wggnrggwqLmdvb2dsZS5jb22CFiouYXBwZW5naW5lLmdvb2dsZS5jb22CCSou
+YmRuLmRldoIVKi5vcmlnaW4tdGVzdC5iZG4uZGV2ghIqLmNsb3VkLmdvb2dsZS5j
+b22CGCouY3Jvd2Rzb3VyY2UuZ29vZ2xlLmNvbYIYKi5kYXRhY29tcHV0ZS5nb29n
+bGUuY29tggsqLmdvb2dsZS5jYYILKi5nb29nbGUuY2yCDiouZ29vZ2xlLmNvLmlu
+gg4qLmdvb2dsZS5jby5qcIIOKi5nb29nbGUuY28udWuCDyouZ29vZ2xlLmNvbS5h
+coIPKi5nb29nbGUuY29tLmF1gg8qLmdvb2dsZS5jb20uYnKCDyouZ29vZ2xlLmNv
+bS5jb4IPKi5nb29nbGUuY29tLm14gg8qLmdvb2dsZS5jb20udHKCDyouZ29vZ2xl
+LmNvbS52boILKi5nb29nbGUuZGWCCyouZ29vZ2xlLmVzggsqLmdvb2dsZS5mcoIL
+Ki5nb29nbGUuaHWCCyouZ29vZ2xlLml0ggsqLmdvb2dsZS5ubIILKi5nb29nbGUu
+cGyCCyouZ29vZ2xlLnB0gg8qLmdvb2dsZWFwaXMuY26CDCouZ3N0YXRpYy5jboIQ
+Ki5nc3RhdGljLWNuLmNvbYIPZ29vZ2xlY25hcHBzLmNughEqLmdvb2dsZWNuYXBw
+cy5jboIRZ29vZ2xlYXBwcy1jbi5jb22CEyouZ29vZ2xlYXBwcy1jbi5jb22CDGdr
+ZWNuYXBwcy5jboIOKi5na2VjbmFwcHMuY26CEmdvb2dsZWRvd25sb2Fkcy5jboIU
+Ki5nb29nbGVkb3dubG9hZHMuY26CEHJlY2FwdGNoYS5uZXQuY26CEioucmVjYXB0
+Y2hhLm5ldC5jboIQcmVjYXB0Y2hhLWNuLm5ldIISKi5yZWNhcHRjaGEtY24ubmV0
+ggt3aWRldmluZS5jboINKi53aWRldmluZS5jboIRYW1wcHJvamVjdC5vcmcuY26C
+EyouYW1wcHJvamVjdC5vcmcuY26CEWFtcHByb2plY3QubmV0LmNughMqLmFtcHBy
+b2plY3QubmV0LmNughdnb29nbGUtYW5hbHl0aWNzLWNuLmNvbYIZKi5nb29nbGUt
+YW5hbHl0aWNzLWNuLmNvbYIXZ29vZ2xlYWRzZXJ2aWNlcy1jbi5jb22CGSouZ29v
+Z2xlYWRzZXJ2aWNlcy1jbi5jb22CEWdvb2dsZXZhZHMtY24uY29tghMqLmdvb2ds
+ZXZhZHMtY24uY29tghFnb29nbGVhcGlzLWNuLmNvbYITKi5nb29nbGVhcGlzLWNu
+LmNvbYIVZ29vZ2xlb3B0aW1pemUtY24uY29tghcqLmdvb2dsZW9wdGltaXplLWNu
+LmNvbYISZG91YmxlY2xpY2stY24ubmV0ghQqLmRvdWJsZWNsaWNrLWNuLm5ldIIY
+Ki5mbHMuZG91YmxlY2xpY2stY24ubmV0ghYqLmcuZG91YmxlY2xpY2stY24ubmV0
+gg5kb3VibGVjbGljay5jboIQKi5kb3VibGVjbGljay5jboIUKi5mbHMuZG91Ymxl
+Y2xpY2suY26CEiouZy5kb3VibGVjbGljay5jboIRZGFydHNlYXJjaC1jbi5uZXSC
+EyouZGFydHNlYXJjaC1jbi5uZXSCHWdvb2dsZXRyYXZlbGFkc2VydmljZXMtY24u
+Y29tgh8qLmdvb2dsZXRyYXZlbGFkc2VydmljZXMtY24uY29tghhnb29nbGV0YWdz
+ZXJ2aWNlcy1jbi5jb22CGiouZ29vZ2xldGFnc2VydmljZXMtY24uY29tghdnb29n
+bGV0YWdtYW5hZ2VyLWNuLmNvbYIZKi5nb29nbGV0YWdtYW5hZ2VyLWNuLmNvbYIY
+Z29vZ2xlc3luZGljYXRpb24tY24uY29tghoqLmdvb2dsZXN5bmRpY2F0aW9uLWNu
+LmNvbYIkKi5zYWZlZnJhbWUuZ29vZ2xlc3luZGljYXRpb24tY24uY29tghZhcHAt
+bWVhc3VyZW1lbnQtY24uY29tghgqLmFwcC1tZWFzdXJlbWVudC1jbi5jb22CC2d2
+dDEtY24uY29tgg0qLmd2dDEtY24uY29tggtndnQyLWNuLmNvbYINKi5ndnQyLWNu
+LmNvbYILMm1kbi1jbi5uZXSCDSouMm1kbi1jbi5uZXSCFGdvb2dsZWZsaWdodHMt
+Y24ubmV0ghYqLmdvb2dsZWZsaWdodHMtY24ubmV0ggxhZG1vYi1jbi5jb22CDiou
+YWRtb2ItY24uY29tghkqLmdlbWluaS5jbG91ZC5nb29nbGUuY29tghRnb29nbGVz
+YW5kYm94LWNuLmNvbYIWKi5nb29nbGVzYW5kYm94LWNuLmNvbYIeKi5zYWZlbnVw
+Lmdvb2dsZXNhbmRib3gtY24uY29tgg0qLmdzdGF0aWMuY29tghQqLm1ldHJpYy5n
+c3RhdGljLmNvbYIKKi5ndnQxLmNvbYIRKi5nY3BjZG4uZ3Z0MS5jb22CCiouZ3Z0
+Mi5jb22CDiouZ2NwLmd2dDIuY29tghAqLnVybC5nb29nbGUuY29tghYqLnlvdXR1
+YmUtbm9jb29raWUuY29tggsqLnl0aW1nLmNvbYIKYWkuYW5kcm9pZIILYW5kcm9p
+ZC5jb22CDSouYW5kcm9pZC5jb22CEyouZmxhc2guYW5kcm9pZC5jb22CBGcuY26C
+BiouZy5jboIEZy5jb4IGKi5nLmNvggZnb28uZ2yCCnd3dy5nb28uZ2yCFGdvb2ds
+ZS1hbmFseXRpY3MuY29tghYqLmdvb2dsZS1hbmFseXRpY3MuY29tggpnb29nbGUu
+Y29tghJnb29nbGVjb21tZXJjZS5jb22CFCouZ29vZ2xlY29tbWVyY2UuY29tgghn
+Z3BodC5jboIKKi5nZ3BodC5jboIKdXJjaGluLmNvbYIMKi51cmNoaW4uY29tggh5
+b3V0dS5iZYILeW91dHViZS5jb22CDSoueW91dHViZS5jb22CEW11c2ljLnlvdXR1
+YmUuY29tghMqLm11c2ljLnlvdXR1YmUuY29tghR5b3V0dWJlZWR1Y2F0aW9uLmNv
+bYIWKi55b3V0dWJlZWR1Y2F0aW9uLmNvbYIPeW91dHViZWtpZHMuY29tghEqLnlv
+dXR1YmVraWRzLmNvbYIFeXQuYmWCByoueXQuYmWCGmFuZHJvaWQuY2xpZW50cy5n
+b29nbGUuY29tghMqLmFuZHJvaWQuZ29vZ2xlLmNughIqLmNocm9tZS5nb29nbGUu
+Y26CFiouZGV2ZWxvcGVycy5nb29nbGUuY26CFSouYWlzdHVkaW8uZ29vZ2xlLmNv
+bTATBgNVHSAEDDAKMAgGBmeBDAECATA2BgNVHR8ELzAtMCugKaAnhiVodHRwOi8v
+Yy5wa2kuZ29vZy93cjIvb0JGWVlhaHpnVkkuY3JsMIIBBQYKKwYBBAHWeQIEAgSB
+9gSB8wDxAHYA1219ENGn9XfCx+lf1wC/+YLJM1pl4dCzAXMXwMjFaXcAAAGdqj5k
+nwAABAMARzBFAiBlfn5cVV6+Vqur2t5g7mcqFKnY0ONUo1hp1f9WSGmY3QIhAOzh
+uGdM5FINtmxwIsPllrtmQFKhV8t8UKxdFZ6FeJKfAHcAyKPEf8ezrbk1awE/anoS
+beM6TkOlxkb5l605dZkdz5oAAAGdqj5ktAAABAMASDBGAiEA5D+gxqeAN67822ml
+EgEsa42u587nnscOW4X/n/HJukUCIQDxQHnfj3pJ9duiSTyI286ala6TtXqGXhHW
+lIgTN38QQzANBgkqhkiG9w0BAQsFAAOCAQEABRL26vEDFOPtG+PnzfA8YcH7gEqf
+NOo5E8gu9uM9DNxXotVP99cebi5npELVfNmMvUiALQ+4HXlXOTHHDkCm1wFX/ieN
+xTP4DpBrecTyam9AbJGaXHZ1aKvCmbIaI2nAsuaNRc+4w09QSrgHu51PhBG8h6q0
+PRdojaP/FtaO9EL5HVrSi4U6mFcgY7T2kWvIdmdK/ldTUgumPZmccUFgxRP0fLEW
+C2Xp7r8VWPjcLuepUaP8wyBujgFtVfR/5ISF6BknwND3ygTlHSONvtKQwQzxEqMC
+KW4WqVqr/dTDm7jDup4cDRTJ2URLLKbf3oFqxddeSgiQn+cd6CusrUH+fQ==
+-----END CERTIFICATE-----
+subject=CN = *.google.com
+issuer=C = US, O = Google Trust Services, CN = WR2
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: ECDSA
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 6634 bytes and written 392 bytes
+Verification: OK
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 256 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---
+^C
+user@LinuxdaFaculdade:~/Desktop$ wget
+wget: missing URL
+Usage: wget [OPTION]... [URL]...
+
+Try `wget --help' for more options.
+user@LinuxdaFaculdade:~/Desktop$ wget https://www.google.com/
+--2026-05-10 14:59:09--  https://www.google.com/
+Resolving www.google.com (www.google.com)... 142.251.157.119, 142.251.150.119, 142.251.156.119, ...
+Connecting to www.google.com (www.google.com)|142.251.157.119|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: ‘index.html.1’
+
+index.html.1                              [ <=>                                                                      ]  79.20K  --.-KB/s    in 0.05s   
+
+2026-05-10 14:59:09 (1.51 MB/s) - ‘index.html.1’ saved [81104]
+
+user@LinuxdaFaculdade:~/Desktop$ 
+

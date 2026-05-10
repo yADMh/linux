@@ -1,0 +1,6 @@
+user@ubuntu:~/Desktop$ sysctl net.ipv4.ip_forward
+net.ipv4.ip_forward = 0
+user@ubuntu:~/Desktop$ sudo sysctl -w net.ipv4.ip_forward=1
+[sudo] password for user: 
+net.ipv4.ip_forward = 1
+
