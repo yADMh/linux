@@ -17,5 +17,6 @@ CF-RAY: 9ff71ecbee59ae8a-GRU
 
 0
 
-A evidência demonstra que foi possível estabelecer comunicação TCP com a porta 80 do servidor e receber uma resposta HTTP válida. Isso ajuda no diagnóstico porque confirma que a porta está acessível, que o serviço web está respondendo corretamente e que há troca real de dados entre cliente e servidor. Em caso de falha, seria possível identificar problemas de firewall, bloqueio de porta ou indisponibilidade do serviço HTTP.
+A evidência demonstra que foi possível estabelecer comunicação TCP com a porta 80 do servidor e receber uma resposta HTTP válida. Isso ajuda no diagnóstico porque confirma que a porta está acessível, que o serviço web está respondendo corretamente e que há troca 
+real de dados entre cliente e servidor. Em caso de falha, seria possível identificar problemas de firewall, bloqueio de porta ou indisponibilidade do serviço HTTP.
 
