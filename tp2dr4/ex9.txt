@@ -1,0 +1,32 @@
+user@ubuntu:~/Desktop$ # Portas típicas de risco:
+# 21=FTP, 23=Telnet, 79=Finger, 513=rlogin, 514=rsh
+
+nmap -sT -p 21,23,79,513,514 localhost
+
+# Com netstat:
+netstat -tlnp | grep -E ":21|:23|:79|:513|:514"
+
+# Com ss:
+ss -tlnp | grep -E ":21 |:23 |:79 |:513 |:514 "
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-05-21 23:25 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000079s latency).
+Other addresses for localhost (not scanned): ::1
+rDNS record for 127.0.0.1: localhost.localdomain
+
+PORT    STATE  SERVICE
+21/tcp  closed ftp
+23/tcp  closed telnet
+79/tcp  closed finger
+513/tcp closed login
+514/tcp closed shell
+
+Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+
+
+
+A varredura demonstrou que serviços legados e inseguros como FTP, Telnet, Finger e rlogin/rsh não estavam expostos no host, pois todas as portas analisadas apareceram como closed. Isso é desejável porque esses protocolos normalmente utilizam comunicação sem criptografia, permitindo captura de credenciais e tráfego em texto claro.
+
+Além disso, manter essas portas fechadas reduz a superfície de ataque do servidor e diminui o risco de exploração de serviços antigos ou mal configurados.

@@ -1,0 +1,38 @@
+user@ubuntu:~/Desktop$ sudo lsof -i -P -n | grep LISTEN
+# Alternativa — só TCP LISTEN:
+sudo lsof -iTCP -sTCP:LISTEN -P -n
+[sudo] password for user: 
+systemd       1            root  451u  IPv4  39491      0t0  TCP *:22 (LISTEN)
+systemd       1            root  452u  IPv6  40334      0t0  TCP *:22 (LISTEN)
+systemd-r   384 systemd-resolve   15u  IPv4   7263      0t0  TCP 127.0.0.53:53 (LISTEN)
+systemd-r   384 systemd-resolve   17u  IPv4   7265      0t0  TCP 127.0.0.54:53 (LISTEN)
+cupsd      1345            root    6u  IPv6  12071      0t0  TCP [::1]:631 (LISTEN)
+cupsd      1345            root    7u  IPv4  12072      0t0  TCP 127.0.0.1:631 (LISTEN)
+container  1354            root    9u  IPv4  12149      0t0  TCP 127.0.0.1:37493 (LISTEN)
+sshd      22520            root    3u  IPv4  39491      0t0  TCP *:22 (LISTEN)
+sshd      22520            root    4u  IPv6  40334      0t0  TCP *:22 (LISTEN)
+COMMAND     PID            USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+systemd       1            root  451u  IPv4  39491      0t0  TCP *:22 (LISTEN)
+systemd       1            root  452u  IPv6  40334      0t0  TCP *:22 (LISTEN)
+systemd-r   384 systemd-resolve   15u  IPv4   7263      0t0  TCP 127.0.0.53:53 (LISTEN)
+systemd-r   384 systemd-resolve   17u  IPv4   7265      0t0  TCP 127.0.0.54:53 (LISTEN)
+cupsd      1345            root    6u  IPv6  12071      0t0  TCP [::1]:631 (LISTEN)
+cupsd      1345            root    7u  IPv4  12072      0t0  TCP 127.0.0.1:631 (LISTEN)
+container  1354            root    9u  IPv4  12149      0t0  TCP 127.0.0.1:37493 (LISTEN)
+sshd      22520            root    3u  IPv4  39491      0t0  TCP *:22 (LISTEN)
+sshd      22520            root    4u  IPv6  40334      0t0  TCP *:22 (LISTEN)
+user@ubuntu:~/Desktop$ sudo lsof -i :22
+# Campos: COMMAND PID USER FD TYPE NODE NAME
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+systemd     1 root  451u  IPv4  39491      0t0  TCP *:ssh (LISTEN)
+systemd     1 root  452u  IPv6  40334      0t0  TCP *:ssh (LISTEN)
+sshd    22520 root    3u  IPv4  39491      0t0  TCP *:ssh (LISTEN)
+sshd    22520 root    4u  IPv6  40334      0t0  TCP *:ssh (LISTEN)
+user@ubuntu:~/Desktop$ # Substitua 80 pela porta escolhida:
+sudo lsof -i :80
+sudo lsof -i :443
+
+
+O uso do lsof permitiu identificar quais processos estavam utilizando portas TCP em estado LISTEN, além de mostrar o PID, usuário e serviço responsável por cada socket. Isso é essencial antes de alterar configurações ou reiniciar serviços, pois evita conflitos de porta, interrupções inesperadas e alterações em processos errados.
+
+Esse tipo de mapeamento também ajuda no troubleshooting, permitindo confirmar se um serviço realmente está escutando na porta esperada e qual processo está associado à conexão de re

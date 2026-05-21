@@ -1,0 +1,64 @@
+user@ubuntu:~/Desktop$ ip addr show
+# Interface típica: eth0, ens3, lo
+IFACE=$(ip route | grep default | awk '{print $5}')
+echo "Interface ativa: $IFACE"
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:76:61:58 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 83765sec preferred_lft 83765sec
+    inet6 fd17:625c:f037:2:54c0:eadd:3f85:aae8/64 scope global temporary dynamic 
+       valid_lft 86259sec preferred_lft 14259sec
+    inet6 fd17:625c:f037:2:a00:27ff:fe76:6158/64 scope global dynamic mngtmpaddr 
+       valid_lft 86259sec preferred_lft 14259sec
+    inet6 fe80::a00:27ff:fe76:6158/64 scope link 
+       valid_lft forever preferred_lft forever
+3: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether a6:41:93:d2:6c:09 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+Interface ativa: enp0s3
+user@ubuntu:~/Desktop$ PORT=55000
+IFACE=lo  # use lo para capturar tráfego localhost
+
+sudo tcpdump -i $IFACE -w captura.pcap port $PORT &
+echo "tcpdump PID: $!"
+[1] 23498
+tcpdump PID: 23498
+user@ubuntu:~/Desktop$ [sudo] password for user: 
+1234
+1234: command not found
+
+[1]+  Stopped                 sudo tcpdump -i $IFACE -w captura.pcap port $PORT
+user@ubuntu:~/Desktop$ echo "tcpdump PID: $!"
+tcpdump PID: 23498
+user@ubuntu:~/Desktop$ echo "tcpdump PID: $!"
+tcpdump PID: 23498
+user@ubuntu:~/Desktop$ kill %1
+
+[sudo] password for user: [1]+  Stopped                 sudo tcpdump -i $IFACE -w captura.pcap port $PORT
+user@ubuntu:~/Desktop$ 
+ls -lh captura.pcap
+ls: cannot access 'captura.pcap': No such file or directory
+
+[1]+  Stopped                 sudo tcpdump -i $IFACE -w captura.pcap port $PORT
+
+
+user@ubuntu:~/Desktop$ nc -l -p 55000
+Pacote capturado!
+^C
+
+
+user@ubuntu:~/Desktop$ echo "Pacote capturado!" | nc localhost 55000
+
+
+Os testes demonstraram o uso do tcpdump para captura de tráfego TCP na interface de loopback (lo) utilizando a porta 55000. Também foi possível gerar tráfego real com o netcat, enviando a mensagem “Pacote capturado!” entre cliente e servidor locais, comprovando a comunicação TCP na máquina.
+
+Durante a execução ocorreram interrupções no processo do tcpdump, o que impediu a criação inicial do arquivo .pcap. Mesmo assim, o exercício evidenciou o processo de captura de pacotes, identificação da interface correta e geração de tráfego para análise.
+
+Esse tipo de procedimento é essencial em troubleshooting porque permite observar o tráfego real da rede, validar se pacotes estão chegando ao destino e identificar problemas relacionados a conectividade, firewall, portas bloqueadas ou falhas na comunicação entre aplicações.

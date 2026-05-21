@@ -1,0 +1,77 @@
+user@ubuntu:~/Desktop$ # Com netstat:
+netstat -tlnp
+
+# Equivalente com ss (mais moderno):
+ss -tlnp
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.54:53           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:37493         0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   
+tcp6       0      0 ::1:631                 :::*                    LISTEN      -                   
+tcp6       0      0 :::22                   :::*                    LISTEN      -                   
+State            Recv-Q            Send-Q                       Local Address:Port                        Peer Address:Port           Process           
+LISTEN           0                 4096                         127.0.0.53%lo:53                               0.0.0.0:*                                
+LISTEN           0                 4096                            127.0.0.54:53                               0.0.0.0:*                                
+LISTEN           0                 4096                             127.0.0.1:631                              0.0.0.0:*                                
+LISTEN           0                 4096                             127.0.0.1:37493                            0.0.0.0:*                                
+LISTEN           0                 4096                               0.0.0.0:22                               0.0.0.0:*                                
+LISTEN           0                 4096                                 [::1]:631                                 [::]:*                                
+LISTEN           0                 4096                                  [::]:22                                  [::]:*                                
+user@ubuntu:~/Desktop$ netstat -tnp | grep ESTABLISHED
+# ou
+ss -tnp | grep ESTAB
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+user@ubuntu:~/Desktop$ netstat -tnp | grep ESTABLISHED
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+user@ubuntu:~/Desktop$ netstat -tnp | grep ESTABLISHED
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+user@ubuntu:~/Desktop$ ss -tnp | grep ESTAB
+user@ubuntu:~/Desktop$ # Apenas IPv4:
+netstat -tlnp -4
+
+# Apenas IPv6:
+netstat -tlnp -6
+
+# Com ss:
+ss -tlnp -4
+ss -tlnp -6
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.54:53           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:37493         0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp6       0      0 ::1:631                 :::*                    LISTEN      -                   
+tcp6       0      0 :::22                   :::*                    LISTEN      -                   
+State            Recv-Q            Send-Q                       Local Address:Port                        Peer Address:Port           Process           
+LISTEN           0                 4096                         127.0.0.53%lo:53                               0.0.0.0:*                                
+LISTEN           0                 4096                            127.0.0.54:53                               0.0.0.0:*                                
+LISTEN           0                 4096                             127.0.0.1:631                              0.0.0.0:*                                
+LISTEN           0                 4096                             127.0.0.1:37493                            0.0.0.0:*                                
+LISTEN           0                 4096                               0.0.0.0:22                               0.0.0.0:*                                
+State             Recv-Q            Send-Q                       Local Address:Port                       Peer Address:Port           Process           
+LISTEN            0                 4096                                 [::1]:631                                [::]:*                                
+LISTEN            0                 4096                                  [::]:22                                 [::]:*                                
+user@ubuntu:~/Desktop$ 
+
+
+Os testes com netstat e ss permitiram identificar as portas TCP em estado LISTEN no sistema, mostrando quais serviços estavam aguardando conexões de rede. Foi possível confirmar que o serviço SSH estava ativo e escutando na porta 22 tanto em IPv4 (0.0.0.0:22) quanto em IPv6 (:::22), além de observar outros serviços locais como DNS e impressão.
+
+A ausência de conexões em estado ESTABLISHED indicou que não havia sessões TCP ativas no momento da verificação, o que também faz parte da análise de rede e troubleshooting. A separação entre IPv4 e IPv6 ajudou a validar em quais protocolos cada serviço estava disponível.
+
+Essas evidências são importantes porque permitem diagnosticar rapidamente problemas relacionados a portas fechadas, serviços não iniciados, ausência de escuta em determinada interface ou falhas de conectividade entre cliente e servidor.

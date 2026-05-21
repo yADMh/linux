@@ -1,0 +1,48 @@
+user@ubuntu:~/Desktop$ # Escolha uma porta alta (50000–60000):
+PORT=55000
+nc -l -p $PORT
+# ou em sistemas mais novos:
+nc -lv $PORT
+
+^C
+Listening on 0.0.0.0 55000
+PORT=55000
+nc -l -p $PORT
+
+^C
+user@ubuntu:~/Desktop$ PORT=55000
+nc -l -p $PORT
+^C
+user@ubuntu:~/Desktop$ nc -lv $PORT
+Listening on 0.0.0.0 55000
+^C
+user@ubuntu:~/Desktop$ PORT=55000
+nc localhost $PORT
+user@ubuntu:~/Desktop$ nc -lv $PORT
+Listening on 0.0.0.0 55000
+Connection received on localhost.localdomain 51892
+Olá servidor TCP!
+^C
+user@ubuntu:~/Desktop$ ss -tlnp | grep 5500
+user@ubuntu:~/Desktop$ ss -tlnp | grep 55000
+user@ubuntu:~/Desktop$ nc -lv $PORT
+Listening on 0.0.0.0 55000
+Connection received on localhost.localdomain 41028
+sudo lsof -i :55000
+aaaaa
+
+
+user@ubuntu:~/Desktop$ PORT=55000
+nc localhost $PORT
+Olá servidor TCP!
+^C
+user@ubuntu:~/Desktop$ PORT=55000
+nc localhost $PORT
+# Digite uma mensagem e pressione Enter:
+Olá servidor TCP!
+sudo lsof -i :55000
+aaaaa
+
+Os testes com nc (netcat) permitiram criar manualmente um socket TCP em modo servidor na porta 55000 e estabelecer uma conexão local utilizando localhost. A evidência de “Connection received” confirmou que o servidor estava escutando corretamente e que houve troca de dados entre cliente e servidor através da mensagem enviada.
+
+A utilização do ss e lsof durante os testes ajuda a validar se a porta realmente está em estado LISTEN e qual processo está associado à conexão. Esse tipo de verificação é importante em troubleshooting porque permite identificar rapidamente conflitos de porta, falhas de escuta, problemas de firewall ou aplicações que não estão aceitando conexões corretamente.

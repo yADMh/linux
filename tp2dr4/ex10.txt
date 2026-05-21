@@ -1,0 +1,58 @@
+user@ubuntu:~/Desktop$ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+ls -lh /etc/ssh/sshd_config*
+[sudo] password for user: 
+-rw-r--r-- 1 root root 3.5K Mar  4 17:55 /etc/ssh/sshd_config
+-rw-r--r-- 1 root root 3.5K May 21 23:26 /etc/ssh/sshd_config.bak
+
+/etc/ssh/sshd_config.d:
+total 0
+user@ubuntu:~/Desktop$ sudo sed -i 's/^#*PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+grep PermitRootLogin /etc/ssh/sshd_config
+PermitRootLogin no
+# the setting of "PermitRootLogin prohibit-password".
+user@ubuntu:~/Desktop$ sudo systemctl restart sshd
+systemctl status sshd
+Warning: The unit file, source configuration file or drop-ins of sshd.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+Warning: The unit file, source configuration file or drop-ins of ssh.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-05-21 23:27:28 UTC; 28ms ago
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 24470 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 24473 (sshd)
+      Tasks: 1 (limit: 3616)
+     Memory: 1.2M (peak: 1.3M)
+        CPU: 27ms
+     CGroup: /system.slice/ssh.service
+             └─24473 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+user@ubuntu:~/Desktop$ ssh localhost "whoami && hostname"
+user@localhost's password: 
+user
+ubuntu
+user@ubuntu:~/Desktop$ sudo cp /etc/ssh/sshd_config.bak /etc/ssh/sshd_config
+user@ubuntu:~/Desktop$ sudo systemctl restart sshd
+systemctl status sshd
+Warning: The unit file, source configuration file or drop-ins of sshd.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+Warning: The unit file, source configuration file or drop-ins of ssh.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-05-21 23:28:02 UTC; 14ms ago
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 24552 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 24553 (sshd)
+      Tasks: 1 (limit: 3616)
+     Memory: 1.3M (peak: 1.5M)
+        CPU: 26ms
+     CGroup: /system.slice/ssh.service
+             └─24553 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+
+O procedimento demonstrou uma alteração segura de configuração no serviço SSH, incluindo criação de backup, modificação controlada do parâmetro PermitRootLogin e reinicialização do serviço para aplicar as mudanças. A validação com ssh localhost confirmou que o acesso remoto continuou funcional após a alteração da configuração.
+
+Também foi realizado o processo de rollback utilizando o arquivo de backup original, restaurando a configuração anterior e reiniciando novamente o serviço com sucesso. As evidências mostraram que o sshd permaneceu em estado active (running) durante todo o processo.
+
+Esse tipo de prática é essencial em ambientes corporativos porque reduz o risco de perda de acesso remoto após mudanças em serviços críticos e garante recuperação rápida em caso de erro de configuração.

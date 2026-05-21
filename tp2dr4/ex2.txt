@@ -1,0 +1,56 @@
+user@ubuntu:~/Desktop$ curl --trace-ascii trace1.txt https://example.com -o /dev/null -s
+# Verificar o arquivo gerado:
+ls -lh trace1.txt
+-rw-rw-r-- 1 user user 13K May 21 22:52 trace1.txt
+user@ubuntu:~/Desktop$ # Linhas que contêm dados enviados (=>)
+grep "=>" trace1.txt | head -20
+=> Send SSL data, 5 bytes (0x5)
+=> Send SSL data, 1563 bytes (0x61b)
+=> Send SSL data, 5 bytes (0x5)
+=> Send SSL data, 1 bytes (0x1)
+=> Send SSL data, 5 bytes (0x5)
+=> Send SSL data, 1 bytes (0x1)
+=> Send SSL data, 52 bytes (0x34)
+=> Send SSL data, 5 bytes (0x5)
+=> Send SSL data, 1 bytes (0x1)
+=> Send header, 73 bytes (0x49)
+=> Send SSL data, 5 bytes (0x5)
+=> Send SSL data, 1 bytes (0x1)
+=> Send SSL data, 5 bytes (0x5)
+=> Send SSL data, 1 bytes (0x1)
+user@ubuntu:~/Desktop$ # Linhas de dados recebidos (<=)
+grep "<=" trace1.txt | head -20
+<= Recv SSL data, 5 bytes (0x5)
+<= Recv SSL data, 1210 bytes (0x4ba)
+<= Recv SSL data, 5 bytes (0x5)
+<= Recv SSL data, 1 bytes (0x1)
+<= Recv SSL data, 5 bytes (0x5)
+<= Recv SSL data, 1 bytes (0x1)
+<= Recv SSL data, 19 bytes (0x13)
+<= Recv SSL data, 3668 bytes (0xe54)
+<= Recv SSL data, 80 bytes (0x50)
+<= Recv SSL data, 52 bytes (0x34)
+<= Recv SSL data, 5 bytes (0x5)
+<= Recv SSL data, 1 bytes (0x1)
+<= Recv SSL data, 230 bytes (0xe6)
+<= Recv SSL data, 230 bytes (0xe6)
+<= Recv SSL data, 5 bytes (0x5)
+<= Recv SSL data, 1 bytes (0x1)
+<= Recv SSL data, 5 bytes (0x5)
+<= Recv SSL data, 1 bytes (0x1)
+<= Recv header, 13 bytes (0xd)
+<= Recv header, 37 bytes (0x25)
+user@ubuntu:~/Desktop$ # Sem seguir redirect:
+curl --trace-ascii trace_noredir.txt http://example.com -o /dev/null -s
+
+# Seguindo redirect (-L):
+curl --trace-ascii trace_redir.txt -L http://example.com -o /dev/null -s
+
+# Comparar tamanhos:
+ls -lh trace_noredir.txt trace_redir.txt
+-rw-rw-r-- 1 user user 2.1K May 21 22:52 trace_noredir.txt
+-rw-rw-r-- 1 user user 2.1K May 21 22:52 trace_redir.txt
+
+Os testes com curl --trace-ascii permitiram observar claramente a troca de dados entre cliente e servidor durante uma conexão HTTP/HTTPS. As linhas com => mostram os dados enviados pelo cliente, enquanto as linhas com <= representam as respostas recebidas do servidor, comprovando que houve comunicação bidirecional e resposta válida do serviço web.
+
+A análise também demonstrou o funcionamento do HTTPS e do processo de redirecionamento HTTP, evidenciando que a conexão foi estabelecida corretamente e que o servidor respondeu às requisições realizadas. Esse tipo de evidência é útil em troubleshooting porque ajuda a identificar problemas relacionados à conectividade, portas bloqueadas, falhas no serviço web ou erros de redirecionamento.

@@ -1,0 +1,21 @@
+user@ubuntu:~/Desktop$ printf "GET / HTTP/1.1\r\nHost: example.com\r\n\r\n" | nc example.com 80
+HTTP/1.1 200 OK
+Date: Thu, 21 May 2026 22:46:59 GMT
+Content-Type: text/html
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Last-Modified: Sun, 17 May 2026 20:05:30 GMT
+Allow: GET, HEAD
+Accept-Ranges: bytes
+Age: 7136
+cf-cache-status: HIT
+CF-RAY: 9ff71ecbee59ae8a-GRU
+
+210
+<!doctype html><html lang="en"><head><title>Example Domain</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href="https://iana.org/domains/example">Learn more</a></p></div></body></html>
+
+0
+
+A evidência demonstra que foi possível estabelecer comunicação TCP com a porta 80 do servidor e receber uma resposta HTTP válida. Isso ajuda no diagnóstico porque confirma que a porta está acessível, que o serviço web está respondendo corretamente e que há troca real de dados entre cliente e servidor. Em caso de falha, seria possível identificar problemas de firewall, bloqueio de porta ou indisponibilidade do serviço HTTP.
+

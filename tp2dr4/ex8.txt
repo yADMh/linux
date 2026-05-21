@@ -1,0 +1,70 @@
+user@ubuntu:~/Desktop$ # Varredura das portas mais comuns:
+nmap -sT localhost
+
+# Varredura mais completa (todas as portas):
+nmap -sT -p- localhost
+
+# Com detecção de serviço:
+nmap -sV localhost
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-05-21 23:23 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000076s latency).
+Other addresses for localhost (not scanned): ::1
+rDNS record for 127.0.0.1: localhost.localdomain
+Not shown: 998 closed tcp ports (conn-refused)
+PORT    STATE SERVICE
+22/tcp  open  ssh
+631/tcp open  ipp
+
+Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-05-21 23:23 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000064s latency).
+Other addresses for localhost (not scanned): ::1
+rDNS record for 127.0.0.1: localhost.localdomain
+Not shown: 65532 closed tcp ports (conn-refused)
+PORT      STATE SERVICE
+22/tcp    open  ssh
+631/tcp   open  ipp
+37493/tcp open  unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 2.04 seconds
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-05-21 23:23 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00010s latency).
+Other addresses for localhost (not scanned): ::1
+rDNS record for 127.0.0.1: localhost.localdomain
+Not shown: 998 closed tcp ports (conn-refused)
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 9.6p1 Ubuntu 3ubuntu13.16 (Ubuntu Linux; protocol 2.0)
+631/tcp open  ipp     CUPS 2.4
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 6.49 seconds
+user@ubuntu:~/Desktop$ # Inicie o nc listener antes:
+nc -l -p 55000 &
+
+# Varredura na porta específica:
+nmap -sT -p 55000 localhost
+[1] 24310
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-05-21 23:23 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000071s latency).
+Other addresses for localhost (not scanned): ::1
+rDNS record for 127.0.0.1: localhost.localdomain
+
+PORT      STATE SERVICE
+55000/tcp open  unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
+[1]+  Done                    nc -l -p 55000
+user@ubuntu:~/Desktop$ # Confirmar qual processo mantém a porta:
+sudo lsof -i :55000
+
+
+Os testes com nmap permitiram identificar as portas TCP abertas no sistema local e detectar os serviços associados a elas. Foi possível confirmar que o SSH estava ativo na porta 22, o serviço CUPS na porta 631 e também validar a abertura temporária da porta 55000 utilizando o netcat.
+
+A opção -sV demonstrou a capacidade do nmap de identificar versões de serviços, evidenciando o OpenSSH e o CUPS em execução. Já a varredura completa com -p- mostrou todas as portas TCP abertas no host, incluindo portas menos comuns.
+
+Essas evidências são fundamentais em troubleshooting e segurança porque ajudam a identificar serviços expostos, validar se aplicações estão realmente escutando nas portas esperadas e detectar portas abertas indevidamente, facilitando diagnósticos de conectividade, firewall e exposição de serviços na rede.

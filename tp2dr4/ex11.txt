@@ -1,0 +1,34 @@
+user@ubuntu:~/Desktop$ nc -l -p 55000 &
+echo "nc PID: $!"
+# Imediatamente verificar LISTEN:
+ss -tlnp | grep 55000
+[1] 24596
+nc PID: 24596
+LISTEN 0      1            0.0.0.0:55000      0.0.0.0:*    users:(("nc",pid=24596,fd=3))
+user@ubuntu:~/Desktop$ sudo lsof -i :55000
+[sudo] password for user: 
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+nc      24596 user    3u  IPv4 137937      0t0  TCP *:55000 (LISTEN)
+nc      24596 user    4u  IPv4 139222      0t0  TCP localhost.localdomain:55000->localhost.localdomain:50776 (ESTABLISHED)
+nc      24605 user    3u  IPv4 139241      0t0  TCP localhost.localdomain:50776->localhost.localdomain:55000 (ESTABLISHED)
+
+[1]+  Stopped                 nc -l -p 55000
+
+
+user@ubuntu:~/Desktop$ # Em outro terminal:
+nc localhost 55000 &
+# Verificar ESTABLISHED:
+ss -tnp | grep 55000
+[1] 24605
+ESTAB 0      0          127.0.0.1:55000    127.0.0.1:50776 users:(("nc",pid=24596,fd=4))
+ESTAB 0      0          127.0.0.1:50776    127.0.0.1:55000 users:(("nc",pid=24605,fd=3))
+
+
+
+BIND: o processo nc (PID 24596) associou o socket à porta 55000, evidenciado por "TCP *:55000 (LISTEN)" no lsof.
+
+LISTEN: o socket entrou em estado de escuta, comprovado pela saída "LISTEN 0 1 0.0.0.0:55000" no comando ss -tlnp.
+
+ACCEPT: a conexão do cliente localhost foi aceita pelo servidor, evidenciada pelo estado "ESTABLISHED" entre 127.0.0.1:55000 e 127.0.0.1:50776.
+
+SEND/RECV: houve troca de dados entre cliente e servidor através da sessão nc localhost 55000, mantendo a conexão TCP em estado ESTAB.

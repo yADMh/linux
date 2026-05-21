@@ -1,0 +1,112 @@
+user@ubuntu:~/Desktop$ systemctl status sshd
+Unit sshd.service could not be found.
+user@ubuntu:~/Desktop$ systemctl status ssh
+○ ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; disabled; preset: enabled)
+     Active: inactive (dead)
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+user@ubuntu:~/Desktop$ sudo systemctl start sshd
+sudo systemctl enable sshd
+systemctl status sshd
+[sudo] password for user: 
+Failed to start sshd.service: Unit sshd.service not found.
+Failed to enable unit: Unit file sshd.service does not exist.
+Unit sshd.service could not be found.
+user@ubuntu:~/Desktop$ sudo systemctl start ssh 
+sudo systemctl enable ssh 
+systemctl status ssh
+Synchronizing state of ssh.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable ssh
+Created symlink /etc/systemd/system/sshd.service → /usr/lib/systemd/system/ssh.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/ssh.service → /usr/lib/systemd/system/ssh.service.
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-05-21 22:54:46 UTC; 1s ago
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 22520 (sshd)
+      Tasks: 1 (limit: 3616)
+     Memory: 2.1M (peak: 2.6M)
+        CPU: 27ms
+     CGroup: /system.slice/ssh.service
+             └─22520 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+user@ubuntu:~/Desktop$ # Ver linhas não comentadas:
+sudo grep -v "^#" /etc/ssh/ssh_config | grep -v "^$"
+
+# Campos específicos exigidos:
+sudo ssh -T | grep -E "^(port|passwordauthentication|permitrootlogin)"
+Include /etc/ssh/ssh_config.d/*.conf
+Host *
+    SendEnv LANG LC_*
+    HashKnownHosts yes
+    GSSAPIAuthentication yes
+usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address]
+           [-c cipher_spec] [-D [bind_address:]port] [-E log_file]
+           [-e escape_char] [-F configfile] [-I pkcs11] [-i identity_file]
+           [-J destination] [-L address] [-l login_name] [-m mac_spec]
+           [-O ctl_cmd] [-o option] [-P tag] [-p port] [-R address]
+           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]
+           destination [command [argument ...]]
+       ssh [-Q query_option]
+user@ubuntu:~/Desktop$ # Via loopback:
+ssh localhost
+
+# Ou com usuário explícito:
+ssh $(whoami)@127.0.0.1
+
+# Executar comando remoto diretamente:
+ssh localhost "hostname && whoami && date"
+The authenticity of host 'localhost (::1)' can't be established.
+ED25519 key fingerprint is SHA256:ehBpHwFofHZ7YxLgWy12qT+C5o+jsi+oLTeEHEcIOG8.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'localhost' (ED25519) to the list of known hosts.
+user@localhost's password: 
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.17.0-23-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+113 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+1 additional security update can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+user@ubuntu:~$ # Ver linhas não comentadas:
+sudo grep -v "^#" /etc/ssh/sshd_config | grep -v "^$"
+
+# Campos específicos exigidos:
+sudo sshd -T | grep -E "^(port|passwordauthentication|permitrootlogin)"
+[sudo] password for user: 
+Include /etc/ssh/sshd_config.d/*.conf
+KbdInteractiveAuthentication no
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+port 22
+permitrootlogin without-password
+passwordauthentication yes
+
+
+Os testes realizados demonstraram que o serviço OpenSSH foi instalado, habilitado e iniciado corretamente no Ubuntu. Inicialmente houve erro ao utilizar o nome sshd.service, pois nesta distribuição o serviço é registrado como ssh.service. Após iniciar e habilitar o serviço correto, o status passou para active (running), confirmando que o servidor SSH estava operacional.
+
+Também foi possível validar a configuração ativa do SSH, identificando parâmetros importantes como porta 22, autenticação por senha habilitada e restrição de login direto do usuário root. O teste de conexão via ssh localhost comprovou que o servidor aceitou conexões locais e realizou autenticação com sucesso.
+
+Essas evidências são importantes em troubleshooting porque permitem confirmar se o serviço SSH está instalado, ativo, escutando na porta correta e aceitando conexões, facilitando a identificação de problemas relacionados a configuração, autenticação, firewall ou disponibilidade do serviço remoto.
