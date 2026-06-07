@@ -1,0 +1,7 @@
+user@ubuntu:~/Desktop$ python3 ex09_ipv6_server.py
+Conectado: ('::1', 54182, 0, 0)
+Teste IPv6
+
+
+user@ubuntu:~/Desktop$ python3 ex09_ipv6_client.py
+

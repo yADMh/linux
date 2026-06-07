@@ -1,0 +1,34 @@
+user@ubuntu:~/Desktop$ python3 ex06_http_server_concorrente.py
+Traceback (most recent call last):
+  File "/home/user/Desktop/ex06_http_server_concorrente.py", line 87, in <module>
+    main()
+  File "/home/user/Desktop/ex06_http_server_concorrente.py", line 68, in main
+    server.bind((HOST, PORT))
+OSError: [Errno 98] Address already in use
+user@ubuntu:~/Desktop$ for i in {1..10}
+do
+    curl http://localhost:8080/health &
+done
+
+wait
+[1] 6095
+[2] 6096
+[3] 6098
+[4] 6099
+[5] 6100
+[6] 6101
+[7] 6102
+[8] 6103
+[9] 6104
+[10] 6106
+<h1>HEALTH</h1><h1>HEALTH</h1><h1>HEALTH</h1><h1>HEALTH</h1><h1>HEALTH</h1><h1>HEALTH</h1><h1>HEALTH</h1>[1]   Done                    curl http://localhost:8080/health
+[2]   Done                    curl http://localhost:8080/health
+[3]   Done                    curl http://localhost:8080/health
+[5]   Done                    curl http://localhost:8080/health
+[6]   Done                    curl http://localhost:8080/health
+[7]   Done                    curl http://localhost:8080/health
+[9]-  Done                    curl http://localhost:8080/health
+<h1>HEALTH</h1><h1>HEALTH</h1>[4]   Done                    curl http://localhost:8080/health
+[10]+  Done                    curl http://localhost:8080/health
+<h1>HEALTH</h1>[8]+  Done                    curl http://localhost:8080/health
+

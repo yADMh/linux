@@ -1,0 +1,6 @@
+user@ubuntu:~/Desktop$ python3 ex01_inventario_socket.py
+[OK] IPv4 TCP
+[OK] IPv4 UDP
+[OK] IPv6 TCP
+[OK] IPv6 UDP
+

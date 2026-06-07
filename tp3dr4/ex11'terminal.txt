@@ -1,0 +1,16 @@
+user@ubuntu:~/Desktop$ python3 ex11_file_server.py
+Traceback (most recent call last):
+  File "/home/user/Desktop/ex11_file_server.py", line 7, in <module>
+    server.bind(("0.0.0.0", 12345))
+OSError: [Errno 98] Address already in use
+user@ubuntu:~/Desktop$ python3 ex11_file_server.py
+Traceback (most recent call last):
+  File "/home/user/Desktop/ex11_file_server.py", line 7, in <module>
+    server.bind(("0.0.0.1", 12346))
+OSError: [Errno 99] Cannot assign requested address
+user@ubuntu:~/Desktop$ python3 ex11_file_server.py
+Traceback (most recent call last):
+  File "/home/user/Desktop/ex11_file_server.py", line 7, in <module>
+    server.bind(("1.0.0.1", 12346))
+OSError: [Errno 99] Cannot assign requested address
+

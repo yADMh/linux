@@ -1,0 +1,54 @@
+user@ubuntu:~/Desktop$ python3 ex03_tcp_server.py
+Cliente 127.0.0.1:41292
+127.0.0.1:41292 -> Mensagem TCP
+Cliente 127.0.0.1:37156
+Cliente 127.0.0.1:37168
+127.0.0.1:37168 -> Mensagem TCP
+Cliente 127.0.0.1:37184
+127.0.0.1:37184 -> Mensagem TCP
+Cliente 127.0.0.1:37198
+127.0.0.1:37156 -> Mensagem TCP
+127.0.0.1:37198 -> Mensagem TCP
+Cliente 127.0.0.1:37212
+127.0.0.1:37212 -> Mensagem TCP
+^CTraceback (most recent call last):
+  File "/home/user/Desktop/ex03_tcp_server.py", line 41, in <module>
+    conn, addr = server.accept()
+                 ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 295, in accept
+    fd, addr = self._accept()
+               ^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+user@ubuntu:~/Desktop$ python3 ex03_tcp_client.py
+Cliente: ('127.0.0.1', 41292)
+Mensagem TCP
+
+
+user@ubuntu:~/Desktop$ for i in {1..5}
+do
+    python3 ex03_tcp_client.py &
+done
+
+wait
+[1] 6029
+[2] 6030
+[3] 6031
+[4] 6032
+[5] 6034
+Cliente: ('127.0.0.1', 37156)
+Cliente: ('127.0.0.1', 37184)
+Cliente: ('127.0.0.1', 37198)
+Cliente: ('127.0.0.1', 37168)
+Mensagem TCP
+Mensagem TCP
+Mensagem TCP
+Mensagem TCP
+Cliente: ('127.0.0.1', 37212)
+[1]   Done                    python3 ex03_tcp_client.py
+[3]   Done                    python3 ex03_tcp_client.py
+Mensagem TCP
+[2]   Done                    python3 ex03_tcp_client.py
+[4]-  Done                    python3 ex03_tcp_client.py
+[5]+  Done                    python3 ex03_tcp_client.py
+

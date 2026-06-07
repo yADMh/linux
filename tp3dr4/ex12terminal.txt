@@ -1,0 +1,13 @@
+user@ubuntu:~/Desktop$ python3 ex12_http_final.py
+2026-06-07 21:33:03.977251 ('127.0.0.1', 57054) /
+2026-06-07 21:33:12.429213 ('127.0.0.1', 53018) /admin
+2026-06-07 21:33:19.383360 ('127.0.0.1', 42710) /qualquercoisa
+^CTraceback (most recent call last):
+  File "/home/user/Desktop/ex12_http_final.py", line 15, in <module>
+    conn, addr = server.accept()
+                 ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 295, in accept
+    fd, addr = self._accept()
+               ^^^^^^^^^^^^^^
+KeyboardInterrupt
+

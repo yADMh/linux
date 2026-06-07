@@ -1,0 +1,29 @@
+user@ubuntu:~/Desktop$ openssl req -x509 \
+-newkey rsa:2048 \
+-keyout server.key \
+-out server.crt \
+-days 365 \
+-nodes
+..+.......+......+..+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*..........+..+...+......+....+...........+....+.........+..+...+......+......+....+..+...................+...+.....+.......+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*..+.+...+.....+............+...+............+.......+..+......+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+....+...+......+.+.....+.+.....+....+......+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*......+..+...................+......+.....+....+.....+.+...+...+..+...+.......+.....+.+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*.....+......+........+.......+..+.+...........+.+.....+.......+..+.+.....+...+..........+............+..................+......+.........+......+.....+...+............+...+.+......+...+...+.........+..................+.....+...+....+...........+...+............+.........+...+............+.........+.+.....+.+..+...+...+..........+.........+..+...+...+.......+..+...+...+...+.+.........+............+...............+..+.+.....+.+.....+.+..+......+....+...+...............+...+...........................+.................+.+...........+...+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:br
+State or Province Name (full name) [Some-State]:sao paulo
+Locality Name (eg, city) []:rio claro
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:infnet 
+Organizational Unit Name (eg, section) []:estudante
+Common Name (e.g. server FQDN or YOUR name) []:ademir
+Email Address []:ademir@
+
+user@ubuntu:~/Desktop$ python3 ex08_tls_server.py
+
+user@ubuntu:~/Desktop$ curl -k https://localhost:8443
+curl: (1) Received HTTP/0.9 when not allowed
+

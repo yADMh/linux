@@ -1,0 +1,14 @@
+user@ubuntu:~/Desktop$ python3 ex05_http_server.py
+^CTraceback (most recent call last):
+  File "/home/user/Desktop/ex05_http_server.py", line 14, in <module>
+    conn, addr = server.accept()
+                 ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 295, in accept
+    fd, addr = self._accept()
+               ^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+
+user@ubuntu:~/Desktop$ curl http://localhost:8080/
+<h1>RAIZ</h1>user@ubuntu:~/Desktop$ ^C
+

@@ -1,0 +1,7 @@
+user@ubuntu:~/Desktop$ python3 ex04_connect_ex.py
+Porta=22 Retorno=0 Tempo=0.00199s
+Porta=80 Retorno=111 Tempo=0.00008s
+Porta=9999 Retorno=111 Tempo=0.00006s
+
+
+

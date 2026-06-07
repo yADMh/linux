@@ -1,0 +1,11 @@
+user@ubuntu:~/Desktop$ python3 ex10_port_scanner.py
+Porta aberta: 22
+Tempo: 0.008878707885742188
+
+user@ubuntu:~/Desktop$ python3 -m http.server 8000
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+^C
+Keyboard interrupt received, exiting.
+
+user@ubuntu:~/Desktop$ echo "Teste de transferencia TCP" > teste.txt
+
