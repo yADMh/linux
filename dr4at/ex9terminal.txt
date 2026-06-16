@@ -1,0 +1,56 @@
+comandos usados
+python3 servidor_http.py
+
+sudo python3 analisador_http.py
+
+curl -H "Accept-Language: pt" http://localhost:8080/home.html
+curl -H "Accept-Language: en" http://localhost:8080/home.html
+curl http://localhost:8080/contato.html
+curl http://localhost:8080/invalido.html
+for i in {1..3}; do
+curl http://localhost:8080/invalido.html
+done
+
+user@laboratorio-linux:~/Desktop$ python3 servidor_http.py
+Servidor HTTP iniciado na porta 8080
+127.0.0.1 GET /home.htmlcurl -> 404 Not Found
+127.0.0.1 GET /home.htmlcurl -> 404 Not Found
+127.0.0.1 GET /home.html -> 200 OK
+127.0.0.1 GET /home.html -> 200 OK
+127.0.0.1 GET /home.html -> 200 OK
+127.0.0.1 GET /home.html -> 200 OK
+127.0.0.1 GET /contato.html -> 200 OK
+127.0.0.1 GET /invalido.html -> 404 Not Found
+127.0.0.1 GET /invalido.html -> 404 Not Found
+127.0.0.1 GET /invalido.html -> 404 Not Found
+127.0.0.1 GET /invalido.html -> 404 Not Found
+^CTraceback (most recent call last):
+  File "/home/user/Desktop/servidor_http.py", line 34, in <module>
+    conn, addr = server.accept()
+                 ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 295, in accept
+    fd, addr = self._accept()
+               ^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+
+
+user@laboratorio-linux:~/Desktop$ sudo python3 analisador_http.py
+[sudo] password for user: 
+Capturando HTTP na porta 8080...
+
+
+user@laboratorio-linux:~/Desktop$ curl -H "Accept-Language: pt" http://localhost:8080/home.html
+
+<h1>Página Inicial</h1>user@laboratorio-linux:~/Desktop$ 
+user@laboratorio-linux:~/Desktop$ curl -H "Accept-Language: pt" http://localhost:8080/home.html
+<h1>Página Inicial</h1>user@laboracurl -H "Accept-Language: en" http://localhost:8080/home.htmlocalhost:8080/home.html
+
+<h1>Home Page</h1>user@laboratorio-linux:~/Desktop$ 
+user@laboratorio-linux:~/Desktop$ curl http://localhost:8080/contato.html
+<h1>Contato</h1>user@laboratorio-lcurl http://localhost:8080/invalido.html80/invalido.html
+user@laboratorio-linux:~/Desktop$ for i in {1..3}; do~/Desktop$ for i in {1..3}; do
+curl http://localhost:8080/invalido.html
+done
+<h1>Página não encontrada</h1><h1>Página não encontrada</h1><h1>Página não encontrada</h1>user@laboratorio-linux:~/Desktop$ 
+

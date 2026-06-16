@@ -1,0 +1,46 @@
+comandos usados
+python3 servidor_udp.py
+python3 cliente_udp.py
+python3 cliente_udp.py
+
+
+user@laboratorio-linux:~/Desktop$ python3 servidor_udp.py
+Recebido: Teste
+ACK perdido
+Recebido: Teste
+ACK perdido
+Recebido: Teste
+ACK perdido
+Recebido: Teste
+ACK perdido
+Recebido: Teste
+ACK perdido
+Recebido: Teste
+ACK perdido
+Recebido: Teste
+ACK enviado
+^CTraceback (most recent call last):
+  File "/home/user/Desktop/servidor_udp.py", line 10, in <module>
+    dados,addr=s.recvfrom(1024)
+               ^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+
+
+user@laboratorio-linux:~/Desktop$ python3 cliente_udp.py
+Tentativa 1
+Timeout
+Tentativa 2
+Timeout
+Tentativa 3
+Timeout
+Tentativa 4
+Timeout
+Tentativa 5
+Timeout
+user@laboratorio-linux:~/Desktop$ python3 cliente_udp.py
+Tentativa 1
+Timeout
+Tentativa 2
+Recebido ACK
+

@@ -1,0 +1,49 @@
+Comandos utilizados
+
+telnet example.com 80
+GET / HTTP/1.1
+Host: example.com
+
+sudo lsof -iTCP
+
+user@laboratorio-linux:~/Desktop$ telnet example.com 80
+Trying 104.20.23.154...
+Connected to example.com.
+Escape character is '^]'.
+GET / HTTP/1.1
+Host: example.com
+
+HTTP/1.1 200 OK
+Date: Wed, 10 Jun 2026 22:49:16 GMT
+Content-Type: text/html
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Last-Modified: Wed, 10 Jun 2026 20:50:18 GMT
+Allow: GET, HEAD
+Accept-Ranges: bytes
+Age: 6605
+cf-cache-status: HIT
+CF-RAY: a09beda62e09f1e2-GRU
+
+22f
+<!doctype html><html lang="en"><head><title>Example Domain</title><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href="https://iana.org/domains/example">Learn more</a></p></div></body></html>
+
+0
+
+
+Connection closed by foreign host.
+
+user@laboratorio-linux:~/Desktop$ sudo lsof -iTCP
+[sudo] password for user: 
+COMMAND    PID            USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+systemd      1            root  198u  IPv4   9125      0t0  TCP *:ssh (LISTEN)
+systemd      1            root  199u  IPv6   9127      0t0  TCP *:ssh (LISTEN)
+systemd-r  447 systemd-resolve   15u  IPv4   6542      0t0  TCP _localdnsstub:domain (LISTEN)
+systemd-r  447 systemd-resolve   17u  IPv4   6544      0t0  TCP _localdnsproxy:domain (LISTEN)
+cupsd     1385            root    6u  IPv6  13503      0t0  TCP localhost6.localdomain6:ipp (LISTEN)
+cupsd     1385            root    7u  IPv4  13504      0t0  TCP localhost.localdomain:ipp (LISTEN)
+container 1395            root    7u  IPv4  12569      0t0  TCP localhost.localdomain:37031 (LISTEN)
+sshd      1424            root    3u  IPv4   9125      0t0  TCP *:ssh (LISTEN)
+sshd      1424            root    4u  IPv6   9127      0t0  TCP *:ssh (LISTEN)
+

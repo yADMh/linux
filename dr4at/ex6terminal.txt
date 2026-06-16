@@ -1,0 +1,45 @@
+comandos usados
+
+sudo systemctl status ssh
+sudo lsof -i :22
+ps aux | grep sshd
+sudo nano /etc/ssh/sshd_config
+trocar  port 22 por port 2222
+sudo systemctl restart ssh
+ss -tlnp | grep 2222
+ssh -p 2222 user@localhost
+
+user@laboratorio-linux:~/Desktop$ sudo systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-06-11 22:19:22 UTC; 8min ago
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 1352 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 1375 (sshd)
+      Tasks: 1 (limit: 3615)
+     Memory: 2.1M (peak: 2.6M)
+        CPU: 49ms
+     CGroup: /system.slice/ssh.service
+             └─1375 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Jun 11 22:19:21 laboratorio-linux systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Jun 11 22:19:22 laboratorio-linux sshd[1375]: Server listening on 0.0.0.0 port 22.
+Jun 11 22:19:22 laboratorio-linux sshd[1375]: Server listening on :: port 22.
+Jun 11 22:19:22 laboratorio-linux systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+user@laboratorio-linux:~/Desktop$ sudo lsof -i :22
+COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+systemd    1 root  247u  IPv4   9535      0t0  TCP *:ssh (LISTEN)
+systemd    1 root  248u  IPv6  10385      0t0  TCP *:ssh (LISTEN)
+sshd    1375 root    3u  IPv4   9535      0t0  TCP *:ssh (LISTEN)
+sshd    1375 root    4u  IPv6  10385      0t0  TCP *:ssh (LISTEN)
+user@laboratorio-linux:~/Desktop$ ps aux | grep sshd
+root        1375  0.0  0.2  12032  8392 ?        Ss   22:19   0:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+user        5736  0.0  0.0  17820  2372 pts/1    S+   22:27   0:00 grep --color=auto sshd
+user@laboratorio-linux:~/Desktop$ sudo nano /etc/ssh/sshd_config
+user@laboratorio-linux:~/Desktop$ sudo systemctl restart ssh
+user@laboratorio-linux:~/Desktop$ ss -tlnp | grep 2222
+user@laboratorio-linux:~/Desktop$ ssh -p 2222 user@localhost
+ssh: connect to host localhost port 2222: Connection refused
+

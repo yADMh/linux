@@ -1,0 +1,72 @@
+comandos usados
+sudo systemctl start ssh
+sudo systemctl status ssh
+python3 servidor_http.py
+
+python3 inventario.py
+ss -tlnp
+sudo lsof -iTCP -sTCP:LISTEN
+
+
+user@laboratorio-linux:~/Desktop$ sudo systemctl start ssh
+[sudo] password for user: 
+user@laboratorio-linux:~/Desktop$ sudo systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-06-11 22:29:10 UTC; 56min ago
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 5748 (sshd)
+      Tasks: 1 (limit: 3615)
+     Memory: 1.2M (peak: 1.4M)
+        CPU: 20ms
+     CGroup: /system.slice/ssh.service
+             └─5748 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Jun 11 22:29:10 laboratorio-linux systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Jun 11 22:29:10 laboratorio-linux sshd[5748]: Server listening on 0.0.0.0 port 22.
+Jun 11 22:29:10 laboratorio-linux systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+Jun 11 22:29:10 laboratorio-linux sshd[5748]: Server listening on :: port 22.
+user@laboratorio-linux:~/Desktop$ python3 servidor_http.py
+Servidor HTTP iniciado na porta 8080
+Traceback (most recent call last):
+  File "/home/user/Desktop/servidor_http.py", line 36, in <module>
+    requisicao = conn.recv(4096).decode(errors="ignore")
+                 ^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+
+
+user@laboratorio-linux:~/Desktop$ python3 inventario.py
+Iniciando varredura...
+
+Host: 127.0.0.1
+Estado: up
+
+Protocolo: tcp
+Porta: 22 | Estado: open | Serviço: ssh
+Porta: 631 | Estado: open | Serviço: ipp
+Porta: 8080 | Estado: open | Serviço: tcpwrapped
+user@laboratorio-linux:~/Desktop$ ss -tlnp
+State            Recv-Q            Send-Q                       Local Address:Port                        Peer Address:Port           Process           
+LISTEN           0                 4096                               0.0.0.0:22                               0.0.0.0:*                                
+LISTEN           0                 4096                             127.0.0.1:631                              0.0.0.0:*                                
+LISTEN           0                 4096                            127.0.0.54:53                               0.0.0.0:*                                
+LISTEN           0                 4096                             127.0.0.1:40795                            0.0.0.0:*                                
+LISTEN           0                 4096                         127.0.0.53%lo:53                               0.0.0.0:*                                
+LISTEN           0                 4096                                  [::]:22                                  [::]:*                                
+LISTEN           0                 4096                                 [::1]:631                                 [::]:*                                
+user@laboratorio-linux:~/Desktop$ sudo lsof -iTCP -sTCP:LISTEN
+[sudo] password for user: 
+COMMAND     PID            USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+systemd       1            root  389u  IPv4   9535      0t0  TCP *:ssh (LISTEN)
+systemd       1            root  390u  IPv6  10385      0t0  TCP *:ssh (LISTEN)
+container  1369            root    9u  IPv4  13683      0t0  TCP localhost.localdomain:40795 (LISTEN)
+sshd       5748            root    3u  IPv4   9535      0t0  TCP *:ssh (LISTEN)
+sshd       5748            root    4u  IPv6  10385      0t0  TCP *:ssh (LISTEN)
+systemd-r 20943 systemd-resolve   15u  IPv4  65748      0t0  TCP _localdnsstub:domain (LISTEN)
+systemd-r 20943 systemd-resolve   17u  IPv4  65750      0t0  TCP _localdnsproxy:domain (LISTEN)
+cupsd     25486            root    6u  IPv6  69508      0t0  TCP localhost6.localdomain6:ipp (LISTEN)
+cupsd     25486            root    7u  IPv4  69509      0t0  TCP localhost.localdomain:ipp (LISTEN)
+
+
